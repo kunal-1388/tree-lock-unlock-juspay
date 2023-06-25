@@ -4,7 +4,8 @@
         "xstring": "cpp",
         "ostream": "cpp",
         "queue": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "iostream": "cpp"
     },
     "cmake.configureOnOpen": false
 }

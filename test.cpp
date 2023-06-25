@@ -97,13 +97,13 @@ void inform_ancestors_to_remove(Node *node, int val, Node *desc_unlocked)
     {
         node->dec_locked += val;
         node->locked_desc_list.erase(desc_unlocked);
-        // inform_ancestors_to_remove(node->parent,val,desc_unlocked);
-        cout << "checking for node: " << node->s << endl;
-        for (auto val : node->locked_desc_list)
-        {
-            cout << val->s << " ";
-        }
-        cout << endl;
+        inform_ancestors_to_remove(node->parent, val, desc_unlocked);
+        // cout << "checking for node: " << node->s << endl;
+        // for (auto val : node->locked_desc_list)
+        // {
+        //     cout << val->s << " ";
+        // }
+        // cout << endl;
         node = node->parent;
     }
 }
@@ -114,8 +114,8 @@ bool unlock(Node *node, int id)
     {
         return false;
     }
-    cout << "id: " << id << endl;
-    cout << "unlocked " << node->s << " " << node->id << " " << endl;
+    // cout << "id: " << id << endl;
+    // cout << "unlocked " << node->s << " " << node->id << " " << endl;
     node->isLocked = false;
     node->id = -1;
     inform_ancestors_to_remove(node->parent, -1, node);
@@ -138,25 +138,25 @@ bool upgrade(Node *node, int id)
     set<int> ids;
     for (auto it = node->locked_desc_list.begin(); it != node->locked_desc_list.end(); ++it)
     {
-        cout << "here 1" << endl;
+        // cout << "here 1" << endl;
         if (id >= 0)
         {
             ids.insert((*it)->id);
         }
     }
 
-    cout << "ids size: " << ids.size() << endl;
+    // cout << "ids size: " << ids.size() << endl;
 
     if (ids.size() > 1)
     {
-        cout << "here 2" << endl;
+        // cout << "here 2" << endl;
         return false;
     }
 
-    for (auto itr = ids.begin(); itr != ids.end(); ++itr)
-    {
-        cout << *itr << endl;
-    }
+    // for (auto itr = ids.begin(); itr != ids.end(); ++itr)
+    // {
+    //     cout << *itr << endl;
+    // }
 
     bool res = true;
 
@@ -167,8 +167,8 @@ bool upgrade(Node *node, int id)
     }
     for (auto it = temp.begin(); it != temp.end(); ++it)
     {
-        cout << "here 3" << endl;
-        cout << (*it)->s << endl;
+        // cout << "here 3" << endl;
+        // cout << (*it)->s << endl;
         res = res & unlock(*it, id);
     }
     res &= lock(node, id);
@@ -215,12 +215,12 @@ int main()
                 (rem->children).push_back(newNode);
                 qu.push(newNode);
                 index++;
-                cout << newNode->s << " " << (newNode->parent != NULL ? newNode->parent->s : "root") << endl;
+                // cout << newNode->s << " " << (newNode->parent != NULL ? newNode->parent->s : "root") << endl;
             }
         }
     }
 
-    printTree(root);
+    // printTree(root);
 
     for (int i = 0; i < q; i++)
     {
@@ -230,20 +230,20 @@ int main()
         bool ans = false;
         if (val == 1)
         {
-            cout << "if" << endl;
+            // cout << "if" << endl;
             ans = lock(mp[s], id);
         }
         else if (val == 2)
         {
-            cout << "else if" << endl;
+            // cout << "else if" << endl;
             ans = unlock(mp[s], id);
         }
         else if (val == 3)
         {
-            cout << "else" << endl;
+            // cout << "else" << endl;
             ans = upgrade(mp[s], id);
         }
-        printTree(root);
+        // printTree(root);
         cout << ans << endl;
     }
 }
