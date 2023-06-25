@@ -19,6 +19,25 @@ public:
     set<Node *> locked_desc_list;
 };
 
+void printTree(Node *root)
+{
+    cout << root->s << "\n"
+         << "is root locked: " << root->isLocked << "\n"
+         << "parent: " << (root->parent != NULL ? root->parent->s : "root node") << "\n"
+         << "locked ancestor count: " << root->anc_locked << "\n"
+         << "locked descendent count: " << root->dec_locked << "\n";
+    cout << "locked children list start" << endl;
+    for (auto itr = root->locked_desc_list.begin(); itr != root->locked_desc_list.end(); itr++)
+    {
+        cout << (*itr)->s << endl;
+    }
+    cout << "=====================" << endl;
+    for (auto child : root->children)
+    {
+        printTree(child);
+    }
+}
+
 int check_anc_locked_count(Node *node)
 {
 
@@ -124,20 +143,27 @@ bool upgrade(Node *node, int id)
 
 int main()
 {
-    int n = 7; // number of nodes
+    int n; // number of nodes
     cin >> n;
-    int k = 2; // number of children per node
+    int k; // number of children per node
     cin >> k;
-    int q = 3; // number of queries
+    int q; // number of queries
     cin >> q;
 
     map<string, Node *> mp;
-    vector<string> v{"World", "Asia", "Africa", "China", "India", "SouthAfrica", "Egypt"};
+    vector<string> v(n);
 
     for (int i = 0; i < n; i++)
     {
         cin >> v[i];
     }
+
+    cout << "========\n";
+    for (auto s : v)
+    {
+        cout << s << " ";
+    }
+    cout << "======\n";
 
     queue<Node *> qu;
     Node *root = new Node();
@@ -166,6 +192,8 @@ int main()
         }
     }
 
+    // printTree(root);
+
     for (int i = 0; i < q; i++)
     {
         int val, id;
@@ -187,6 +215,7 @@ int main()
             cout << "else" << endl;
             ans = upgrade(mp[s], id);
         }
+        printTree(root);
         cout << ans << endl;
     }
 }
