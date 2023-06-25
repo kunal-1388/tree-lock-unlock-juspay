@@ -2,5 +2,6 @@
     "files.associations": {
         "*.ejs": "html",
         "xstring": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }
