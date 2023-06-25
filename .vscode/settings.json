@@ -1,7 +1,10 @@
 {
     "files.associations": {
         "*.ejs": "html",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "ostream": "cpp",
+        "queue": "cpp",
+        "xtree": "cpp"
     },
     "cmake.configureOnOpen": false
 }
